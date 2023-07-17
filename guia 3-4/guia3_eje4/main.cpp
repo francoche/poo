@@ -34,5 +34,6 @@ int main()
         cout<<vec[i]<<endl;
     }
     delete []vec;
+    cout<<"hola";
     return 0;
 }
