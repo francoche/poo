@@ -1,0 +1,4 @@
+C:/Users/franc/Desktop/poo/proabando_ventana/build-xD-Desktop_Qt_5_12_12_MinGW_64_bit-Debug/CMakeFiles/xD.dir
+C:/Users/franc/Desktop/poo/proabando_ventana/build-xD-Desktop_Qt_5_12_12_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/franc/Desktop/poo/proabando_ventana/build-xD-Desktop_Qt_5_12_12_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/franc/Desktop/poo/proabando_ventana/build-xD-Desktop_Qt_5_12_12_MinGW_64_bit-Debug/CMakeFiles/xD_autogen.dir
