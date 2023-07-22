@@ -50,39 +50,50 @@ bool MainWindow::esAdyacenteEstacion(int row, int col)
         return false;
 }
 
-/*bool MainWindow::esAdyacenteEstacion2(int row, int col,int row2,int col2)
+bool MainWindow::esAdyacenteEstacion2(int row2,int col2)
 {
-    if (row - 1 >= 0 && ocupado[row - 1][col]) {
+    if (estaciones[row2-1][col2]==true) {
             return true;
-            ocupado[row2][col2]=false;
+
         }
 
 
-        if (row + 1 < 5 && ocupado[row + 1][col]) {
+        if (estaciones[row2+1][col2]==true) {
             return true;
-            ocupado[row2][col2]=false;
+
         }
 
 
-        if (col - 1 >= 0 && ocupado[row][col - 1]) {
+        if (estaciones[row2][col2-1]==true) {
             return true;
-            ocupado[row2][col2]=false;
+
         }
 
 
-        if (col + 1 < 5 && ocupado[row][col + 1]) {
+        if (estaciones[row2][col2+1]==true) {
             return true;
-            ocupado[row2][col2]=false;
+
         }
 
         return false;
-}*/
+}
 void MainWindow::generar_estacion()
 {
     int aux1 = rand() % 5;
     int aux2 = rand() % 5;
+
+    while (ocupado[aux1][aux2]==true || esAdyacenteEstacion2(aux1,aux2)) {
+        aux1 = rand() % 5;
+        aux2 = rand() % 5;
+    }
+
+
+
+
     this->cont_estaciones++;
     botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones));;
+    estaciones[aux1][aux2]=true;
+    ocupado[aux1][aux2]=true;
     this->row=aux1;
     this->col=aux2;
 }
@@ -120,6 +131,12 @@ void MainWindow::ejemplo()
             if(rowClicked==this->row && colClicked==this->col){
                 if(this->cont_estaciones==1){
                     this->cont_estaciones++;
+                    this->ganaste++;
+                }
+                this->ganaste++;
+                if(this->ganaste==25){
+                    QMessageBox::information(this,"gaste","ganaste");
+                    on_pushButton_clicked();
                 }
                 Aux->setText("estacion"+QString::number(this->cont_estaciones));
                 for(int i=0;i<5;i++){
@@ -128,6 +145,8 @@ void MainWindow::ejemplo()
                     }
                     }
                 caminos[rowClicked][colClicked]=true;
+                estaciones[rowClicked][colClicked]=true;
+                ocupado[rowClicked][colClicked]=true;
                 Aux->setEnabled(false);
                 cont = 0;
                 ui->lcdNumber->display(cont);
@@ -135,7 +154,10 @@ void MainWindow::ejemplo()
             }else{
                 Aux->setText("/");
                 caminos[rowClicked][colClicked]=true;
+                ocupado[rowClicked][colClicked]=true;
+                this->ganaste++;
                 Aux->setEnabled(false);
+
             }
         }
     }
@@ -164,11 +186,19 @@ void MainWindow::on_start_clicked()
          aux3 = rand() % 5;
          aux4 = rand() % 5;
     }
+    estaciones[aux1][aux2]=true;
+    while(esAdyacenteEstacion2(aux3,aux4)){
+        aux3 = rand() % 5;
+        aux4 = rand() % 5;
+    }
         botones[aux1][aux2]->setText("estacion1");
         caminos[aux1][aux2]=true;
-        estaciones[aux3][aux4]=true;
+        ocupado[aux1][aux2]=true;
         botones[aux1][aux2]->setEnabled(false);
+        this->ganaste++;
         botones[aux3][aux4]->setText("estacion2");
+        estaciones[aux3][aux4]=true;
+        ocupado[aux3][aux4]=true;
         this->row=aux3;
         this->col=aux4;
         this->cont_estaciones++;
@@ -184,12 +214,15 @@ void MainWindow::on_pushButton_clicked()
 {
     timer.stop();
         cont = 0;
+        this->ganaste=0;
         ui->lcdNumber->display(cont);
         for (int row = 0; row < 5; ++row) {
             for (int col = 0; col < 5; ++col) {
                 botones[col][row]->setText("camino");
                 botones[col][row]->setEnabled(true);
                 caminos[col][row]=false;
+                estaciones[col][row] =false;
+                ocupado[col][row]=false;
             }
         }
         ui->start->setEnabled(true);
