@@ -17,6 +17,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     bool esAdyacenteEstacion(int row,int col);
+    void generar_estacion();
+    //bool esAdyacenteEstacion2(int row,int col,int row2,int col2);
     QPushButton* botones[5][5];
 
 private slots:
@@ -28,9 +30,14 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QTimer timer;
+    int row;
+    int col;
     int pos=0;
     int cont=0;
+    int cont_estaciones=0;
+    bool caminos[5][5] = {false};
     bool estaciones[5][5] = {false};
+    //bool ocupado[5][5]={false};
 
 };
 #endif // MAINWINDOW_H

@@ -28,26 +28,63 @@ MainWindow::~MainWindow()
 
 bool MainWindow::esAdyacenteEstacion(int row, int col)
 {
-    if (row - 1 >= 0 && estaciones[row - 1][col]) {
+    if (row - 1 >= 0 && caminos[row - 1][col]) {
             return true;
         }
 
 
-        if (row + 1 < 5 && estaciones[row + 1][col]) {
+        if (row + 1 < 5 && caminos[row + 1][col]) {
             return true;
         }
 
 
-        if (col - 1 >= 0 && estaciones[row][col - 1]) {
+        if (col - 1 >= 0 && caminos[row][col - 1]) {
             return true;
         }
 
 
-        if (col + 1 < 5 && estaciones[row][col + 1]) {
+        if (col + 1 < 5 && caminos[row][col + 1]) {
             return true;
         }
 
         return false;
+}
+
+/*bool MainWindow::esAdyacenteEstacion2(int row, int col,int row2,int col2)
+{
+    if (row - 1 >= 0 && ocupado[row - 1][col]) {
+            return true;
+            ocupado[row2][col2]=false;
+        }
+
+
+        if (row + 1 < 5 && ocupado[row + 1][col]) {
+            return true;
+            ocupado[row2][col2]=false;
+        }
+
+
+        if (col - 1 >= 0 && ocupado[row][col - 1]) {
+            return true;
+            ocupado[row2][col2]=false;
+        }
+
+
+        if (col + 1 < 5 && ocupado[row][col + 1]) {
+            return true;
+            ocupado[row2][col2]=false;
+        }
+
+        return false;
+}*/
+void MainWindow::generar_estacion()
+{
+    int aux1 = rand() % 5;
+    int aux2 = rand() % 5;
+    this->cont_estaciones++;
+    botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones));;
+    this->row=aux1;
+    this->col=aux2;
 }
 
 void MainWindow::contar()
@@ -80,9 +117,26 @@ void MainWindow::ejemplo()
             }
     if (rowClicked != -1 && colClicked != -1) {
         if (esAdyacenteEstacion(rowClicked, colClicked)) {
-            Aux->setText("/");
-            estaciones[rowClicked][colClicked]=true;
-            Aux->setEnabled(false);
+            if(rowClicked==this->row && colClicked==this->col){
+                if(this->cont_estaciones==1){
+                    this->cont_estaciones++;
+                }
+                Aux->setText("estacion"+QString::number(this->cont_estaciones));
+                for(int i=0;i<5;i++){
+                    for(int j=0;j<5;j++){
+                      caminos[j][i]=false;
+                    }
+                    }
+                caminos[rowClicked][colClicked]=true;
+                Aux->setEnabled(false);
+                cont = 0;
+                ui->lcdNumber->display(cont);
+                generar_estacion();
+            }else{
+                Aux->setText("/");
+                caminos[rowClicked][colClicked]=true;
+                Aux->setEnabled(false);
+            }
         }
     }
 
@@ -106,15 +160,18 @@ void MainWindow::on_start_clicked()
     int aux2 = rand() % 5;
     int aux3 = rand() % 5;
     int aux4 = rand() % 5;
-
-        botones[aux1][aux2]->setText("estacion");
-        estaciones[aux1][aux2]=true;
-        botones[aux1][aux2]->setEnabled(false);
-        botones[aux3][aux4]->setText("estacion");
+    while(aux1==aux3 && aux2==aux4){
+         aux3 = rand() % 5;
+         aux4 = rand() % 5;
+    }
+        botones[aux1][aux2]->setText("estacion1");
+        caminos[aux1][aux2]=true;
         estaciones[aux3][aux4]=true;
-        botones[aux3][aux4]->setEnabled(false);
-
-
+        botones[aux1][aux2]->setEnabled(false);
+        botones[aux3][aux4]->setText("estacion2");
+        this->row=aux3;
+        this->col=aux4;
+        this->cont_estaciones++;
 
         this->timer.start(1000);
         contar();
@@ -132,10 +189,11 @@ void MainWindow::on_pushButton_clicked()
             for (int col = 0; col < 5; ++col) {
                 botones[col][row]->setText("camino");
                 botones[col][row]->setEnabled(true);
-                estaciones[col][row]=false;
+                caminos[col][row]=false;
             }
         }
         ui->start->setEnabled(true);
+        this->cont_estaciones=0;
 }
 
 
