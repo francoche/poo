@@ -132,21 +132,34 @@ void MainWindow::ejemplo()
                 if(this->cont_estaciones==1){
                     this->cont_estaciones++;
                     this->ganaste++;
+
                 }
                 this->ganaste++;
-                if(this->ganaste==25){
-                    QMessageBox::information(this,"gaste","ganaste");
+
+                if(this->ganaste==26){
+                    timer.stop();
+                    QMessageBox::information(this,"ganaste","ganaste");
                     on_pushButton_clicked();
                 }
                 Aux->setText("estacion"+QString::number(this->cont_estaciones));
+                //estaciones[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
-                      caminos[j][i]=false;
+
+                          caminos[j][i]=false;
+
                     }
-                    }
-                caminos[rowClicked][colClicked]=true;
+                 }
+                //caminos[rowClicked][colClicked]=true;
                 estaciones[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
+                for(int i=0;i<5;i++){
+                    for(int j=0;j<5;j++){
+                        if(estaciones[j][i]==true){
+                            caminos[j][i]=true;
+                        }
+                    }
+                 }
                 Aux->setEnabled(false);
                 cont = 0;
                 ui->lcdNumber->display(cont);
@@ -217,7 +230,7 @@ void MainWindow::on_pushButton_clicked()
         this->ganaste=0;
         ui->lcdNumber->display(cont);
         for (int row = 0; row < 5; ++row) {
-            for (int col = 0; col < 5; ++col) {
+            for (int col = 0; col < 5; ++col){
                 botones[col][row]->setText("camino");
                 botones[col][row]->setEnabled(true);
                 caminos[col][row]=false;
