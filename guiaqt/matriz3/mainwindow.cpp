@@ -77,21 +77,102 @@ bool MainWindow::esAdyacenteEstacion2(int row2,int col2)
 
         return false;
 }
+
+
+bool MainWindow::esAdyacenteEstacion3(int row, int col)
+{
+    if (row - 1 >= 0 && estaciones[row - 1][col]) {
+        this->col2=col;
+        this->row2=row-1;
+        this->tipo_estacion3=this->testaciones[row][col].geta();
+        return true;
+
+        }
+
+
+        if (row + 1 < 5 && estaciones[row + 1][col]) {
+            this->col2=col;
+            this->row2=row+1;
+            this->tipo_estacion3=this->testaciones[row][col].geta();
+            return true;
+        }
+
+
+        if (col - 1 >= 0 && estaciones[row][col - 1]) {
+            this->col2=col-1;
+            this->row2=row;
+            this->tipo_estacion3=this->testaciones[row][col].geta();
+            return true;
+        }
+
+
+        if (col + 1 < 5 && estaciones[row][col + 1]) {
+            this->col2=col+1;
+            this->row2=row;
+            this->tipo_estacion3=this->testaciones[row][col].geta();
+            return true;
+        }
+
+        return false;
+}
+
+void MainWindow::bloquear(int row,int col)
+{
+    if(esAdyacenteEstacion3(row,col)){
+        switch (this->tipo_estacion3) {
+        case 1:{caminos[row2][col2]=false;
+            break;}
+
+        }
+    }
+  }
+
 void MainWindow::generar_estacion()
 {
-    int aux1 = rand() % 5;
+    /*int aux1 = rand() % 5;
     int aux2 = rand() % 5;
 
     while (ocupado[aux1][aux2]==true || esAdyacenteEstacion2(aux1,aux2)) {
         aux1 = rand() % 5;
         aux2 = rand() % 5;
     }
-
-
-
-
     this->cont_estaciones++;
     botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones));;
+    estaciones[aux1][aux2]=true;
+    ocupado[aux1][aux2]=true;
+    this->row=aux1;
+    this->col=aux2;*/
+    int aux1 ;
+    int aux2 ;
+    this->tipo_estacion=1+rand() % 4;
+    switch (this->tipo_estacion) {
+    case 1:
+    case 2:{ aux1 = rand() % 5;
+             aux2 = rand() % 5;
+             break;}
+    case 3:{ aux1 = 1+rand() % 3;
+             aux2 = rand() % 5;
+             break;}
+    case 4:{ aux1 = rand() % 5;
+             aux2 = 1+rand() % 3;
+             break;}
+    }
+    while (ocupado[aux1][aux2]==true || esAdyacenteEstacion2(aux1,aux2)) {
+        switch (this->tipo_estacion) {
+        case 1:
+        case 2:{ aux1 = rand() % 5;
+                 aux2 = rand() % 5;
+                 break;}
+        case 3:{ aux1 = 1+rand() % 3;
+                 aux2 = rand() % 5;
+                 break;}
+        case 4:{ aux1 = rand() % 5;
+                 aux2 = 1+rand() % 3;
+                 break;}
+        }
+    }
+    this->cont_estaciones++;
+    botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones)+'-'+QString::number(this->tipo_estacion));
     estaciones[aux1][aux2]=true;
     ocupado[aux1][aux2]=true;
     this->row=aux1;
@@ -141,7 +222,7 @@ void MainWindow::ejemplo()
                     QMessageBox::information(this,"ganaste","ganaste");
                     on_pushButton_clicked();
                 }
-                Aux->setText("estacion"+QString::number(this->cont_estaciones));
+                //Aux->setText("estacion"+QString::number(this->cont_estaciones));
                 //estaciones[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
@@ -168,6 +249,7 @@ void MainWindow::ejemplo()
                 Aux->setText("/");
                 caminos[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
+                bloquear(rowClicked,colClicked);
                 this->ganaste++;
                 Aux->setEnabled(false);
 
@@ -191,31 +273,126 @@ void MainWindow::ejemplo()
 
 void MainWindow::on_start_clicked()
 {
-    int aux1 = rand() % 5;
-    int aux2 = rand() % 5;
+    srand(time(NULL));
+    int aux1 ;
+    int aux2 ;
+    int aux3;
+    int aux4;
+    this->tipo_estacion=1+rand() % 4;
+    switch (this->tipo_estacion) {
+    case 1:
+    case 2:{ aux1 = rand() % 5;
+             aux2 = rand() % 5;
+             break;}
+    case 3:{ aux1 = 1+rand() % 3;
+             aux2 = rand() % 5;
+             break;}
+    case 4:{ aux1 = rand() % 5;
+             aux2 = 1+rand() % 3;
+             break;}
+    }
+    switch (this->tipo_estacion) {
+    case 1:{
+        testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
+        estaciones[aux1][aux2]=true;
+        break;
+    }
+    case 2:{
+        testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
+        estaciones[aux1][aux2]=true;
+        break;
+    }
+    case 3:{
+        testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
+        estaciones[aux1][aux2]=true;
+        break;
+    }
+    case 4:{
+        testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
+        estaciones[aux1][aux2]=true;
+        break;
+    }
+    }
+    //estaciones[aux1][aux2]=true;
+    this->tipo_estacion2=1+rand() % 4;
+    /*int aux1 = rand() % 5;
+    //int aux2 = rand() % 5;
     int aux3 = rand() % 5;
     int aux4 = rand() % 5;
     while(aux1==aux3 && aux2==aux4){
          aux3 = rand() % 5;
          aux4 = rand() % 5;
+    }*/
+    switch (this->tipo_estacion2) {
+    case 1:
+    case 2:{ aux3 = rand() % 5;
+             aux4 = rand() % 5;
+             break;}
+    case 3:{ aux3 = 1+rand() % 3;
+             aux4 = rand() % 5;
+             break;}
+    case 4:{ aux3 = rand() % 5;
+             aux4 = 1+rand() % 3;
+             break;}
     }
-    estaciones[aux1][aux2]=true;
+    while(aux1==aux3 && aux2==aux4){
+        switch (this->tipo_estacion2) {
+        case 1:
+        case 2:{ aux3 = rand() % 5;
+                 aux4 = rand() % 5;
+                 break;}
+        case 3:{ aux3 = 1+rand() % 3;
+                 aux4 = rand() % 5;
+                 break;}
+        case 4:{ aux3 = rand() % 5;
+                 aux4 = 1+rand() % 3;
+                 break;}
+        }
+    }
     while(esAdyacenteEstacion2(aux3,aux4)){
-        aux3 = rand() % 5;
-        aux4 = rand() % 5;
+        switch (this->tipo_estacion2) {
+        case 1:
+        case 2:{ aux3 = rand() % 5;
+                 aux4 = rand() % 5;
+                 break;}
+        case 3:{ aux3 = 1+rand() % 3;
+                 aux4 = rand() % 5;
+                 break;}
+        case 4:{ aux3 = rand() % 5;
+                 aux4 = 1+rand() % 3;
+                 break;}
+        }
     }
-        botones[aux1][aux2]->setText("estacion1");
+    switch (this->tipo_estacion2) {
+    case 1:{
+        testaciones[aux3][aux4].setdatos(this->tipo_estacion2,aux3,aux4);
+        estaciones[aux3][aux4]=true;
+        break;
+    }
+    case 2:{
+        testaciones[aux3][aux4].setdatos(this->tipo_estacion2,aux3,aux4);
+        estaciones[aux3][aux4]=true;
+        break;}
+    case 3:{
+        testaciones[aux3][aux4].setdatos(this->tipo_estacion2,aux3,aux4);
+        estaciones[aux3][aux4]=true;
+        break;}
+    case 4:{
+        testaciones[aux3][aux4].setdatos(this->tipo_estacion2,aux3,aux4);
+        estaciones[aux3][aux4]=true;
+        break;}
+    }
+        botones[aux1][aux2]->setText("estacion1-"+QString::number(this->tipo_estacion));
         caminos[aux1][aux2]=true;
         ocupado[aux1][aux2]=true;
         botones[aux1][aux2]->setEnabled(false);
         this->ganaste++;
-        botones[aux3][aux4]->setText("estacion2");
-        estaciones[aux3][aux4]=true;
+        botones[aux3][aux4]->setText("estacion2-"+QString::number(this->tipo_estacion2));
+        //estaciones[aux3][aux4]=true;
         ocupado[aux3][aux4]=true;
         this->row=aux3;
         this->col=aux4;
         this->cont_estaciones++;
-
         this->timer.start(1000);
         contar();
         ui->start->setEnabled(false);
