@@ -81,50 +81,87 @@ bool MainWindow::esAdyacenteEstacion2(int row2,int col2)
 
 bool MainWindow::esAdyacenteEstacion3(int row, int col)
 {
-    if (row - 1 >= 0 && estaciones[row - 1][col]) {
-        this->col2=col;
-        this->row2=row-1;
-        this->tipo_estacion3=this->testaciones[row-1][col].geta();
-        return true;
+        if ( testaciones[row-1][col].geta()==3) {
 
-        }
-
-
-        if (row + 1 < 5 && estaciones[row + 1][col]) {
-            this->col2=col;
-            this->row2=row+1;
-            this->tipo_estacion3=this->testaciones[row+1][col].geta();
             return true;
         }
 
 
-        if (col - 1 >= 0 && estaciones[row][col - 1]) {
-            this->col2=col-1;
-            this->row2=row;
-            this->tipo_estacion3=this->testaciones[row][col-1].geta();
-            return true;
-        }
+        if ( testaciones[row+1][col].geta()==3) {
 
-
-        if (col + 1 < 5 && estaciones[row][col + 1]) {
-            this->col2=col+1;
-            this->row2=row;
-            this->tipo_estacion3=this->testaciones[row][col+1].geta();
             return true;
         }
 
         return false;
 }
 
+bool MainWindow::esAdyacenteEstacion4(int row, int col)
+{
+        if (testaciones[row][col-1].geta()==4) {
+
+            return true;
+        }
+
+
+        if ( testaciones[row][col+1].geta()==4) {
+
+            return true;
+        }
+
+        return false;
+}
+
+bool MainWindow::esAdyacenteEstacion5(int row, int col)
+{
+    if (col - 1 >= 0 && estaciones[row][col - 1]) {
+        this->row2=row;
+        this->col2=col-1;
+        this->tipo_estacion3=this->testaciones[row][col-1].geta();
+
+        return true;
+    }
+
+
+    if (col + 1 < 5 && estaciones[row][col + 1]) {
+        this->row2=row;
+        this->col2=col+1;
+         this->tipo_estacion3=this->testaciones[row][col+1].geta();
+
+        return true;
+    }
+    if (col - 1 >= 0 && estaciones[row-1][col]) {
+        this->row2=row-1;
+        this->col2=col;
+         this->tipo_estacion3=this->testaciones[row-1][col].geta();
+
+        return true;
+    }
+
+
+    if (col + 1 < 5 && estaciones[row+1][col]) {
+        this->row2=row+1;
+        this->col2=col;
+         this->tipo_estacion3=this->testaciones[row+1][col].geta();
+
+        return true;
+    }
+    return false;
+}
+
 void MainWindow::bloquear(int row,int col)
 {
-    if(esAdyacenteEstacion3(row,col)){
+    if(esAdyacenteEstacion5(row,col)){
         switch (this->tipo_estacion3) {
         case 1:{caminos[row2][col2]=false;
             break;}
+        case 3:{caminos[row2][col2]=false;
+            break;}
+        case 4:{caminos[row2][col2]=false;
+            break;}
+
         }
     }
-}
+  }
 
 void MainWindow::generar_estacion()
 {
@@ -207,7 +244,7 @@ void MainWindow::ejemplo()
                 }
             }
     if (rowClicked != -1 && colClicked != -1) {
-        if (esAdyacenteEstacion(rowClicked, colClicked)) {
+        if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion3(rowClicked,colClicked)) {
             if(rowClicked==this->row && colClicked==this->col){
                 if(this->cont_estaciones==1){
                     this->cont_estaciones++;
@@ -225,28 +262,27 @@ void MainWindow::ejemplo()
                 //estaciones[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
-                        /*if(estaciones[j][i]==false){
-                            caminos[j][i]=false;
-                        }*/
-
-
-                          caminos[j][i]=false;
+                        caminos[j][i]=false;
 
                     }
                  }
-                //caminos[rowClicked][colClicked]=true;
+                //[rowClicked][colClicked]=true;
                 estaciones[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
                         if(estaciones[j][i]==true){
-                            caminos[j][i]=true;
+                            if(this->testaciones[j][i].geta()==2){
+                                caminos[j][i]=true;
+                            }
+                            //caminos[j][i]=true;
                         }
                     }
                  }
                 Aux->setEnabled(false);
                 cont = 0;
                 ui->lcdNumber->display(cont);
+
                 generar_estacion();
             }else{
                 Aux->setText("/");

@@ -23,6 +23,8 @@ public:
     void generar_estacion();
     bool esAdyacenteEstacion2(int row2,int col2);
     bool esAdyacenteEstacion3(int row,int col);
+    bool esAdyacenteEstacion4(int row,int col);
+    bool esAdyacenteEstacion5(int row,int col);
     void bloquear(int row,int col);
     QPushButton* botones[5][5];
 
