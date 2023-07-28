@@ -84,7 +84,7 @@ bool MainWindow::esAdyacenteEstacion3(int row, int col)
     if (row - 1 >= 0 && estaciones[row - 1][col]) {
         this->col2=col;
         this->row2=row-1;
-        this->tipo_estacion3=this->testaciones[row][col].geta();
+        this->tipo_estacion3=this->testaciones[row-1][col].geta();
         return true;
 
         }
@@ -93,7 +93,7 @@ bool MainWindow::esAdyacenteEstacion3(int row, int col)
         if (row + 1 < 5 && estaciones[row + 1][col]) {
             this->col2=col;
             this->row2=row+1;
-            this->tipo_estacion3=this->testaciones[row][col].geta();
+            this->tipo_estacion3=this->testaciones[row+1][col].geta();
             return true;
         }
 
@@ -101,7 +101,7 @@ bool MainWindow::esAdyacenteEstacion3(int row, int col)
         if (col - 1 >= 0 && estaciones[row][col - 1]) {
             this->col2=col-1;
             this->row2=row;
-            this->tipo_estacion3=this->testaciones[row][col].geta();
+            this->tipo_estacion3=this->testaciones[row][col-1].geta();
             return true;
         }
 
@@ -109,7 +109,7 @@ bool MainWindow::esAdyacenteEstacion3(int row, int col)
         if (col + 1 < 5 && estaciones[row][col + 1]) {
             this->col2=col+1;
             this->row2=row;
-            this->tipo_estacion3=this->testaciones[row][col].geta();
+            this->tipo_estacion3=this->testaciones[row][col+1].geta();
             return true;
         }
 
@@ -122,10 +122,9 @@ void MainWindow::bloquear(int row,int col)
         switch (this->tipo_estacion3) {
         case 1:{caminos[row2][col2]=false;
             break;}
-
         }
     }
-  }
+}
 
 void MainWindow::generar_estacion()
 {
@@ -226,6 +225,10 @@ void MainWindow::ejemplo()
                 //estaciones[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
+                        /*if(estaciones[j][i]==false){
+                            caminos[j][i]=false;
+                        }*/
+
 
                           caminos[j][i]=false;
 
