@@ -25,6 +25,14 @@ public:
     bool esAdyacenteEstacion3(int row,int col);
     bool esAdyacenteEstacion4(int row,int col);
     bool esAdyacenteEstacion5(int row,int col);
+    bool esAdyacenteEstacion6(int row,int col);
+    bool esAdyacenteEstacion7(int row,int col);
+    bool esAdyacenteEstacion8(int row,int col);
+    bool adyacente_ultimo(int row, int col);
+    bool camino_horizontal(int row,int col);
+    bool camino_vertical(int row,int col);
+    bool camino_1_2(int row,int col);
+
     void bloquear(int row,int col);
     QPushButton* botones[5][5];
 
@@ -52,7 +60,9 @@ private:
     bool estaciones[5][5] = {false};
     Estaciones testaciones[5][5];
     bool ocupado[5][5]={false};
-    bool ultimo[5][5]={false};
+    int ultimox=-1;
+    int ultimoy=-1;
+
 
 };
 #endif // MAINWINDOW_H
