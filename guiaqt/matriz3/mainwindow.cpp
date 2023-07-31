@@ -81,7 +81,7 @@ bool MainWindow::esAdyacenteEstacion2(int row2,int col2)
 
 bool MainWindow::esAdyacenteEstacion3(int row, int col)
 {
-        if ( estaciones[row-1][col]==true && testaciones[row-1][col].geta()==3) {
+        if (estaciones[row-1][col]==true &&  testaciones[row-1][col].geta()==3) {
 
             return true;
         }
@@ -305,12 +305,14 @@ void MainWindow::bloquear(int row,int col)
             //testaciones[row2][col2].setdatos(0,row2,col2);
             //estaciones[row2][col2]==false;
             break;}
-        case 2:{caminos[row2][col2]=false;
+        case 2:{
+            caminos[row2][col2]=false;
+            //testaciones[row2][col2].setdatos(0,row2,col2);
 
             break;}
         case 3:{caminos[row2][col2]=false;
             //estaciones[row2][col2]==false;
-           // testaciones[row2][col2].setdatos(0,row2,col2);
+            //testaciones[row2][col2].setdatos(0,row2,col2);
             break;}
         case 4:{caminos[row2][col2]=false;
             //estaciones[row2][col2]==false;
@@ -339,6 +341,7 @@ void MainWindow::generar_estacion()
     int aux1 ;
     int aux2 ;
     int cont=0;
+
     this->tipo_estacion=1+rand() % 4;
 
     switch (this->tipo_estacion) {
@@ -367,17 +370,33 @@ void MainWindow::generar_estacion()
                  break;}
         }
         cont++;
+        if(cont>30){
+            timer.stop();
+            QMessageBox::information(this,"ganaste","ganaste");
+            on_pushButton_clicked();
+        }
     }
-    // TERMINAR ESTE HERMOSISIMO TP
-    this->cont_estaciones++;
+
+    if(cont<30){
+        this->cont_estaciones++;
+        testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
+        botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones)+'-'+QString::number(this->tipo_estacion));
+        estaciones[aux1][aux2]=true;
+        ocupado[aux1][aux2]=true;
+        this->row=aux1;
+        this->col=aux2;
+    }
+    /*this->cont_estaciones++;
     testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
     botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones)+'-'+QString::number(this->tipo_estacion));
     estaciones[aux1][aux2]=true;
     ocupado[aux1][aux2]=true;
     this->row=aux1;
-    this->col=aux2;
+    this->col=aux2;*/
 
 }
+
+
 
 void MainWindow::contar()
 {
@@ -408,7 +427,7 @@ void MainWindow::ejemplo()
                 }
             }
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion3(rowClicked,colClicked)) {
+    if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion3(rowClicked,colClicked) && ultimo==false) {
         if(rowClicked==this->row && colClicked==this->col){
             if(this->cont_estaciones==1){
                 this->cont_estaciones++;
@@ -448,8 +467,14 @@ void MainWindow::ejemplo()
             ui->lcdNumber->display(cont);
              ultimox=-1;
              ultimoy=-1;
+             ultimo=false;
             generar_estacion();
         }else{
+            /*if(this->cont_estaciones==1){
+               estaciones[segx][segy]=true;
+               cont_estaciones++;
+
+            }*/
             Aux->setText("/");
             caminos[rowClicked][colClicked]=true;
             ocupado[rowClicked][colClicked]=true;
@@ -458,11 +483,12 @@ void MainWindow::ejemplo()
             Aux->setEnabled(false);
             ultimox=rowClicked;
             ultimoy=colClicked;
+            ultimo=true;
 
 
         }
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    } else if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion4(rowClicked,colClicked)) {
+    } else if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion4(rowClicked,colClicked)&& ultimo==false) {
     if (rowClicked != -1 && colClicked != -1) {
 
             if(rowClicked==this->row && colClicked==this->col){
@@ -504,8 +530,14 @@ void MainWindow::ejemplo()
                 ui->lcdNumber->display(cont);
                 ultimox=-1;
                 ultimoy=-1;
+                ultimo=false;
                 generar_estacion();
             }else{
+                /*if(this->cont_estaciones==1){
+                   estaciones[segx][segy]=true;
+                   cont_estaciones++;
+
+                }*/
                 Aux->setText("/");
                 caminos[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
@@ -514,12 +546,13 @@ void MainWindow::ejemplo()
                 Aux->setEnabled(false);
                 ultimox=rowClicked;
                 ultimoy=colClicked;
+                ultimo=true;
 
 
             }
         }
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    } else if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion7(rowClicked,colClicked)) {
+    } else if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion7(rowClicked,colClicked)&& ultimo==false) {
         if(rowClicked==this->row && colClicked==this->col){
             if(this->cont_estaciones==1){
                 this->cont_estaciones++;
@@ -559,8 +592,14 @@ void MainWindow::ejemplo()
             ui->lcdNumber->display(cont);
             ultimox=-1;
             ultimoy=-1;
+            ultimo=false;
             generar_estacion();
         }else{
+            /*if(this->cont_estaciones==1){
+               estaciones[segx][segy]=true;
+               cont_estaciones++;
+
+            }*/
             Aux->setText("/");
             caminos[rowClicked][colClicked]=true;
             ocupado[rowClicked][colClicked]=true;
@@ -569,12 +608,13 @@ void MainWindow::ejemplo()
             Aux->setEnabled(false);
             ultimox=rowClicked;
             ultimoy=colClicked;
+            ultimo=true;
 
 
         }
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////
-    else if (esAdyacenteEstacion8(rowClicked,colClicked)&&esAdyacenteEstacion(rowClicked, colClicked)) {
+    else if (esAdyacenteEstacion8(rowClicked,colClicked)&&esAdyacenteEstacion(rowClicked, colClicked)&& ultimo==false) {
             if(rowClicked==this->row && colClicked==this->col){
                 if(this->cont_estaciones==1){
                     this->cont_estaciones++;
@@ -614,8 +654,14 @@ void MainWindow::ejemplo()
                 ui->lcdNumber->display(cont);
                 ultimox=-1;
                 ultimoy=-1;
+                ultimo=false;
                 generar_estacion();
             }else{
+                /*if(this->cont_estaciones==1){
+                   estaciones[segx][segy]=true;
+                   cont_estaciones++;
+
+                }*/
                 Aux->setText("/");
                 caminos[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
@@ -624,6 +670,7 @@ void MainWindow::ejemplo()
                 Aux->setEnabled(false);
                 ultimox=rowClicked;
                 ultimoy=colClicked;
+                ultimo=true;
 
 
             }
@@ -669,6 +716,7 @@ void MainWindow::ejemplo()
                 ui->lcdNumber->display(cont);
                 ultimox=-1;
                 ultimoy=-1;
+                ultimo=false;
                 generar_estacion();
             }else if(rowClicked==this->row && colClicked==this->col && camino_vertical(rowClicked,colClicked)){
                 if(this->cont_estaciones==1){
@@ -709,6 +757,7 @@ void MainWindow::ejemplo()
                 ui->lcdNumber->display(cont);
                 ultimox=-1;
                 ultimoy=-1;
+                ultimo=false;
                 generar_estacion();
             } else if(rowClicked==this->row && colClicked==this->col && camino_1_2(rowClicked,colClicked)){
                 if(this->cont_estaciones==1){
@@ -749,6 +798,7 @@ void MainWindow::ejemplo()
                 ui->lcdNumber->display(cont);
                 ultimox=-1;
                 ultimoy=-1;
+                ultimo=false;
                 generar_estacion();
             }else if(estaciones[rowClicked][colClicked]==false){
                 Aux->setText("/");
@@ -759,6 +809,7 @@ void MainWindow::ejemplo()
                 Aux->setEnabled(false);
                 ultimox=rowClicked;
                 ultimoy=colClicked;
+                ultimo=true;
 
 
             }
@@ -815,6 +866,7 @@ void MainWindow::on_start_clicked()
         break;
     }
     }
+
     //estaciones[aux1][aux2]=true;
     this->tipo_estacion2=1+rand() % 4;
     /*int aux1 = rand() % 5;
@@ -888,12 +940,16 @@ void MainWindow::on_start_clicked()
         caminos[aux1][aux2]=true;
         ocupado[aux1][aux2]=true;
         botones[aux1][aux2]->setEnabled(false);
+        //ultimox=aux1;
+        //ultimoy=aux2;
         this->ganaste++;
         botones[aux3][aux4]->setText("estacion2-"+QString::number(this->tipo_estacion2));
-        estaciones[aux3][aux4]=true;
+        //estaciones[aux3][aux4]=true;
         ocupado[aux3][aux4]=true;
         this->row=aux3;
         this->col=aux4;
+        segx=aux3;
+        segy=aux4;
         this->cont_estaciones++;
         this->timer.start(1000);
         contar();
@@ -917,6 +973,9 @@ void MainWindow::on_pushButton_clicked()
                 ocupado[col][row]=false;
                 ultimox=-1;
                 ultimoy=-1;
+                segx=-1;
+                segy=-1;
+                ultimo=false;
             }
         }
         ui->start->setEnabled(true);

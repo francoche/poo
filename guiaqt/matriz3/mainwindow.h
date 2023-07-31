@@ -62,6 +62,10 @@ private:
     bool ocupado[5][5]={false};
     int ultimox=-1;
     int ultimoy=-1;
+    bool ultimo=false;
+    int segx=-1;
+    int segy=-1;
+
 
 
 };
