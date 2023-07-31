@@ -370,11 +370,11 @@ void MainWindow::generar_estacion()
                  break;}
         }
         cont++;
-        if(cont>30){
+        /*if(cont>30){
             timer.stop();
             QMessageBox::information(this,"ganaste","ganaste");
             on_pushButton_clicked();
-        }
+        }*/
     }
 
     if(cont<30){
@@ -386,13 +386,13 @@ void MainWindow::generar_estacion()
         this->row=aux1;
         this->col=aux2;
     }
-    /*this->cont_estaciones++;
+    this->cont_estaciones++;
     testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
     botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones)+'-'+QString::number(this->tipo_estacion));
     estaciones[aux1][aux2]=true;
     ocupado[aux1][aux2]=true;
     this->row=aux1;
-    this->col=aux2;*/
+    this->col=aux2;
 
 }
 
@@ -470,11 +470,11 @@ void MainWindow::ejemplo()
              ultimo=false;
             generar_estacion();
         }else{
-            /*if(this->cont_estaciones==1){
+            if(this->cont_estaciones==1){
                estaciones[segx][segy]=true;
                cont_estaciones++;
 
-            }*/
+            }
             Aux->setText("/");
             caminos[rowClicked][colClicked]=true;
             ocupado[rowClicked][colClicked]=true;
@@ -533,11 +533,11 @@ void MainWindow::ejemplo()
                 ultimo=false;
                 generar_estacion();
             }else{
-                /*if(this->cont_estaciones==1){
+                if(this->cont_estaciones==1){
                    estaciones[segx][segy]=true;
                    cont_estaciones++;
 
-                }*/
+                }
                 Aux->setText("/");
                 caminos[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
@@ -595,11 +595,11 @@ void MainWindow::ejemplo()
             ultimo=false;
             generar_estacion();
         }else{
-            /*if(this->cont_estaciones==1){
+            if(this->cont_estaciones==1){
                estaciones[segx][segy]=true;
                cont_estaciones++;
 
-            }*/
+            }
             Aux->setText("/");
             caminos[rowClicked][colClicked]=true;
             ocupado[rowClicked][colClicked]=true;
@@ -657,11 +657,11 @@ void MainWindow::ejemplo()
                 ultimo=false;
                 generar_estacion();
             }else{
-                /*if(this->cont_estaciones==1){
+                if(this->cont_estaciones==1){
                    estaciones[segx][segy]=true;
                    cont_estaciones++;
 
-                }*/
+                }
                 Aux->setText("/");
                 caminos[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
