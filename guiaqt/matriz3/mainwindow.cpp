@@ -338,6 +338,12 @@ void MainWindow::generar_estacion()
     ocupado[aux1][aux2]=true;
     this->row=aux1;
     this->col=aux2;*/
+    if(this->ganaste==25){
+        timer.stop();
+        QMessageBox::information(this,"ganaste","ganaste");
+        on_pushButton_clicked();
+    }
+
     int aux1 ;
     int aux2 ;
     int cont=0;
@@ -370,11 +376,11 @@ void MainWindow::generar_estacion()
                  break;}
         }
         cont++;
-        /*if(cont>30){
+        if(cont>30){
             timer.stop();
-            QMessageBox::information(this,"ganaste","ganaste");
+            QMessageBox::information(this,"end","fin del juego");
             on_pushButton_clicked();
-        }*/
+        }
     }
 
     if(cont<30){
@@ -386,13 +392,13 @@ void MainWindow::generar_estacion()
         this->row=aux1;
         this->col=aux2;
     }
-    this->cont_estaciones++;
+    /*this->cont_estaciones++;
     testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
     botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones)+'-'+QString::number(this->tipo_estacion));
     estaciones[aux1][aux2]=true;
     ocupado[aux1][aux2]=true;
     this->row=aux1;
-    this->col=aux2;
+    this->col=aux2;*/
 
 }
 
@@ -429,17 +435,14 @@ void MainWindow::ejemplo()
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion3(rowClicked,colClicked) && ultimo==false) {
         if(rowClicked==this->row && colClicked==this->col){
-            if(this->cont_estaciones==1){
-                this->cont_estaciones++;
-                this->ganaste++;
 
-            }
             this->ganaste++;
-
-            if(this->ganaste==26){
+            if(this->ganaste==25){
                 timer.stop();
                 QMessageBox::information(this,"ganaste","ganaste");
                 on_pushButton_clicked();
+                ganar=true;
+
             }
             //Aux->setText("estacion"+QString::number(this->cont_estaciones));
             //estaciones[rowClicked][colClicked]=true;
@@ -462,13 +465,16 @@ void MainWindow::ejemplo()
                     }
                 }
              }
-            Aux->setEnabled(false);
-            cont = 0;
-            ui->lcdNumber->display(cont);
-             ultimox=-1;
-             ultimoy=-1;
-             ultimo=false;
-            generar_estacion();
+            if(ganar==false){
+                Aux->setEnabled(false);
+                cont = 0;
+                ui->lcdNumber->display(cont);
+                ultimox=-1;
+                ultimoy=-1;
+                ultimo=false;
+                generar_estacion();
+            }
+
         }else{
             if(this->cont_estaciones==1){
                estaciones[segx][segy]=true;
@@ -492,18 +498,16 @@ void MainWindow::ejemplo()
     if (rowClicked != -1 && colClicked != -1) {
 
             if(rowClicked==this->row && colClicked==this->col){
-                if(this->cont_estaciones==1){
-                    this->cont_estaciones++;
-                    this->ganaste++;
 
-                }
                 this->ganaste++;
 
-                if(this->ganaste==26){
+                if(this->ganaste==25){
                     timer.stop();
                     QMessageBox::information(this,"ganaste","ganaste");
                     on_pushButton_clicked();
+                    ganar=true;
                 }
+
                 //Aux->setText("estacion"+QString::number(this->cont_estaciones));
                 //estaciones[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -525,13 +529,17 @@ void MainWindow::ejemplo()
                         }
                     }
                  }
-                Aux->setEnabled(false);
-                cont = 0;
-                ui->lcdNumber->display(cont);
-                ultimox=-1;
-                ultimoy=-1;
-                ultimo=false;
-                generar_estacion();
+                if(ganar==false){
+                    Aux->setEnabled(false);
+                    cont = 0;
+                    ui->lcdNumber->display(cont);
+                    ultimox=-1;
+                    ultimoy=-1;
+                    ultimo=false;
+                    generar_estacion();
+                }
+
+
             }else{
                 if(this->cont_estaciones==1){
                    estaciones[segx][segy]=true;
@@ -554,18 +562,16 @@ void MainWindow::ejemplo()
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     } else if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion7(rowClicked,colClicked)&& ultimo==false) {
         if(rowClicked==this->row && colClicked==this->col){
-            if(this->cont_estaciones==1){
-                this->cont_estaciones++;
-                this->ganaste++;
 
-            }
             this->ganaste++;
 
-            if(this->ganaste==26){
+            if(this->ganaste==25){
                 timer.stop();
                 QMessageBox::information(this,"ganaste","ganaste");
                 on_pushButton_clicked();
+                ganar=true;
             }
+
             //Aux->setText("estacion"+QString::number(this->cont_estaciones));
             //estaciones[rowClicked][colClicked]=true;
             for(int i=0;i<5;i++){
@@ -587,13 +593,16 @@ void MainWindow::ejemplo()
                     }
                 }
              }
-            Aux->setEnabled(false);
-            cont = 0;
-            ui->lcdNumber->display(cont);
-            ultimox=-1;
-            ultimoy=-1;
-            ultimo=false;
-            generar_estacion();
+            if(ganar==false){
+                Aux->setEnabled(false);
+                cont = 0;
+                ui->lcdNumber->display(cont);
+                ultimox=-1;
+                ultimoy=-1;
+                ultimo=false;
+                generar_estacion();
+            }
+
         }else{
             if(this->cont_estaciones==1){
                estaciones[segx][segy]=true;
@@ -616,18 +625,16 @@ void MainWindow::ejemplo()
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     else if (esAdyacenteEstacion8(rowClicked,colClicked)&&esAdyacenteEstacion(rowClicked, colClicked)&& ultimo==false) {
             if(rowClicked==this->row && colClicked==this->col){
-                if(this->cont_estaciones==1){
-                    this->cont_estaciones++;
-                    this->ganaste++;
 
-                }
                 this->ganaste++;
 
-                if(this->ganaste==26){
+                if(this->ganaste==25){
                     timer.stop();
                     QMessageBox::information(this,"ganaste","ganaste");
                     on_pushButton_clicked();
+                    ganar=true;
                 }
+
                 //Aux->setText("estacion"+QString::number(this->cont_estaciones));
                 //estaciones[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -649,13 +656,16 @@ void MainWindow::ejemplo()
                         }
                     }
                  }
-                Aux->setEnabled(false);
-                cont = 0;
-                ui->lcdNumber->display(cont);
-                ultimox=-1;
-                ultimoy=-1;
-                ultimo=false;
-                generar_estacion();
+                if(ganar==false){
+                    Aux->setEnabled(false);
+                    cont = 0;
+                    ui->lcdNumber->display(cont);
+                    ultimox=-1;
+                    ultimoy=-1;
+                    ultimo=false;
+                    generar_estacion();
+                }
+
             }else{
                 if(this->cont_estaciones==1){
                    estaciones[segx][segy]=true;
@@ -678,17 +688,14 @@ void MainWindow::ejemplo()
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     else if (esAdyacenteEstacion(rowClicked, colClicked) && adyacente_ultimo(rowClicked,colClicked)) {
             if(rowClicked==this->row && colClicked==this->col && camino_horizontal(rowClicked,colClicked)){
-                if(this->cont_estaciones==1){
-                    this->cont_estaciones++;
-                    this->ganaste++;
 
-                }
                 this->ganaste++;
 
-                if(this->ganaste==26){
+                if(this->ganaste==25){
                     timer.stop();
                     QMessageBox::information(this,"ganaste","ganaste");
                     on_pushButton_clicked();
+                    ganar=true;
                 }
                 //Aux->setText("estacion"+QString::number(this->cont_estaciones));
                 //estaciones[rowClicked][colClicked]=true;
@@ -711,26 +718,27 @@ void MainWindow::ejemplo()
                         }
                     }
                  }
-                Aux->setEnabled(false);
-                cont = 0;
-                ui->lcdNumber->display(cont);
-                ultimox=-1;
-                ultimoy=-1;
-                ultimo=false;
-                generar_estacion();
+                if(ganar==false){
+                    Aux->setEnabled(false);
+                    cont = 0;
+                    ui->lcdNumber->display(cont);
+                    ultimox=-1;
+                    ultimoy=-1;
+                    ultimo=false;
+                    generar_estacion();
+                }
+
             }else if(rowClicked==this->row && colClicked==this->col && camino_vertical(rowClicked,colClicked)){
-                if(this->cont_estaciones==1){
-                    this->cont_estaciones++;
-                    this->ganaste++;
 
-                }
                 this->ganaste++;
 
-                if(this->ganaste==26){
+                if(this->ganaste==25){
                     timer.stop();
                     QMessageBox::information(this,"ganaste","ganaste");
                     on_pushButton_clicked();
+                    ganar=true;
                 }
+
                 //Aux->setText("estacion"+QString::number(this->cont_estaciones));
                 //estaciones[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -752,26 +760,27 @@ void MainWindow::ejemplo()
                         }
                     }
                  }
-                Aux->setEnabled(false);
-                cont = 0;
-                ui->lcdNumber->display(cont);
-                ultimox=-1;
-                ultimoy=-1;
-                ultimo=false;
-                generar_estacion();
+                if(ganar==false){
+                    Aux->setEnabled(false);
+                    cont = 0;
+                    ui->lcdNumber->display(cont);
+                    ultimox=-1;
+                    ultimoy=-1;
+                    ultimo=false;
+                    generar_estacion();
+                }
+
             } else if(rowClicked==this->row && colClicked==this->col && camino_1_2(rowClicked,colClicked)){
-                if(this->cont_estaciones==1){
-                    this->cont_estaciones++;
-                    this->ganaste++;
 
-                }
                 this->ganaste++;
 
-                if(this->ganaste==26){
+                if(this->ganaste==25){
                     timer.stop();
                     QMessageBox::information(this,"ganaste","ganaste");
                     on_pushButton_clicked();
+                    ganar=true;
                 }
+
                 //Aux->setText("estacion"+QString::number(this->cont_estaciones));
                 //estaciones[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -793,13 +802,17 @@ void MainWindow::ejemplo()
                         }
                     }
                  }
-                Aux->setEnabled(false);
-                cont = 0;
-                ui->lcdNumber->display(cont);
-                ultimox=-1;
-                ultimoy=-1;
-                ultimo=false;
-                generar_estacion();
+                if(ganar==false){
+                    Aux->setEnabled(false);
+                    cont = 0;
+                    ui->lcdNumber->display(cont);
+                    ultimox=-1;
+                    ultimoy=-1;
+                    ultimo=false;
+                    generar_estacion();
+                }
+
+
             }else if(estaciones[rowClicked][colClicked]==false){
                 Aux->setText("/");
                 caminos[rowClicked][colClicked]=true;
@@ -814,6 +827,8 @@ void MainWindow::ejemplo()
 
             }
         }
+
+
 }
 
 
@@ -976,6 +991,7 @@ void MainWindow::on_pushButton_clicked()
                 segx=-1;
                 segy=-1;
                 ultimo=false;
+                ganar=false;
             }
         }
         ui->start->setEnabled(true);

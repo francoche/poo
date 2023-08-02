@@ -65,6 +65,7 @@ private:
     bool ultimo=false;
     int segx=-1;
     int segy=-1;
+    bool ganar=false;
 
 
 
