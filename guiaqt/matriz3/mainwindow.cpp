@@ -19,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
 
    }
    connect(&timer, SIGNAL(timeout()), this, SLOT(contar()));
+   connect(&err, SIGNAL(timeout()), this, SLOT(rest()));
 }
 
 MainWindow::~MainWindow()
@@ -321,7 +322,20 @@ void MainWindow::bloquear(int row,int col)
 
         }
     }
-  }
+}
+void MainWindow::rest()
+{
+    ui->error->setText(" ");
+}
+void MainWindow::mensaje()
+{
+
+    ui->error->setText("movimiento invalido");
+   this->err.start(1700);
+
+}
+
+
 
 void MainWindow::generar_estacion()
 {
@@ -432,6 +446,7 @@ void MainWindow::ejemplo()
                     }
                 }
             }
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     if (esAdyacenteEstacion(rowClicked, colClicked)&&esAdyacenteEstacion3(rowClicked,colClicked) && ultimo==false) {
         if(rowClicked==this->row && colClicked==this->col){
@@ -475,6 +490,7 @@ void MainWindow::ejemplo()
                 generar_estacion();
             }
 
+            clikval=true;
         }else{
             if(this->cont_estaciones==1){
                estaciones[segx][segy]=true;
@@ -490,6 +506,7 @@ void MainWindow::ejemplo()
             ultimox=rowClicked;
             ultimoy=colClicked;
             ultimo=true;
+            clikval=true;
 
 
         }
@@ -539,6 +556,7 @@ void MainWindow::ejemplo()
                     generar_estacion();
                 }
 
+                clikval=true;
 
             }else{
                 if(this->cont_estaciones==1){
@@ -555,6 +573,7 @@ void MainWindow::ejemplo()
                 ultimox=rowClicked;
                 ultimoy=colClicked;
                 ultimo=true;
+                clikval=true;
 
 
             }
@@ -602,6 +621,7 @@ void MainWindow::ejemplo()
                 ultimo=false;
                 generar_estacion();
             }
+            clikval=true;
 
         }else{
             if(this->cont_estaciones==1){
@@ -618,6 +638,7 @@ void MainWindow::ejemplo()
             ultimox=rowClicked;
             ultimoy=colClicked;
             ultimo=true;
+            clikval=true;
 
 
         }
@@ -665,6 +686,7 @@ void MainWindow::ejemplo()
                     ultimo=false;
                     generar_estacion();
                 }
+                clikval=true;
 
             }else{
                 if(this->cont_estaciones==1){
@@ -681,12 +703,14 @@ void MainWindow::ejemplo()
                 ultimox=rowClicked;
                 ultimoy=colClicked;
                 ultimo=true;
+                clikval=true;
 
 
             }
         }
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     else if (esAdyacenteEstacion(rowClicked, colClicked) && adyacente_ultimo(rowClicked,colClicked)) {
+
             if(rowClicked==this->row && colClicked==this->col && camino_horizontal(rowClicked,colClicked)){
 
                 this->ganaste++;
@@ -726,7 +750,9 @@ void MainWindow::ejemplo()
                     ultimoy=-1;
                     ultimo=false;
                     generar_estacion();
+
                 }
+                clikval=true;
 
             }else if(rowClicked==this->row && colClicked==this->col && camino_vertical(rowClicked,colClicked)){
 
@@ -769,6 +795,7 @@ void MainWindow::ejemplo()
                     ultimo=false;
                     generar_estacion();
                 }
+                clikval=true;
 
             } else if(rowClicked==this->row && colClicked==this->col && camino_1_2(rowClicked,colClicked)){
 
@@ -811,6 +838,7 @@ void MainWindow::ejemplo()
                     ultimo=false;
                     generar_estacion();
                 }
+                clikval=true;
 
 
             }else if(estaciones[rowClicked][colClicked]==false){
@@ -823,12 +851,18 @@ void MainWindow::ejemplo()
                 ultimox=rowClicked;
                 ultimoy=colClicked;
                 ultimo=true;
+                clikval=true;
 
 
             }
+            else if(clikval==false && gameon==true){
+                mensaje();
+            }
         }
-
-
+    else if(clikval==false && gameon==true){
+        mensaje();
+    }
+    clikval=false;
 }
 
 
@@ -841,6 +875,7 @@ void MainWindow::ejemplo()
 
 void MainWindow::on_start_clicked()
 {
+    gameon=true;
     srand(time(NULL));
     int aux1 ;
     int aux2 ;
@@ -881,6 +916,7 @@ void MainWindow::on_start_clicked()
         break;
     }
     }
+    ocupado[aux1][aux2]=true;
 
     //estaciones[aux1][aux2]=true;
     this->tipo_estacion2=1+rand() % 4;
@@ -904,8 +940,8 @@ void MainWindow::on_start_clicked()
              aux4 = 1+rand() % 3;
              break;}
     }
-    while(aux1==aux3 && aux2==aux4){
-        switch (this->tipo_estacion2) {
+    while (ocupado[aux3][aux4]==true || esAdyacenteEstacion2(aux3,aux4)) {
+        switch (this->tipo_estacion) {
         case 1:
         case 2:{ aux3 = rand() % 5;
                  aux4 = rand() % 5;
@@ -917,20 +953,7 @@ void MainWindow::on_start_clicked()
                  aux4 = 1+rand() % 3;
                  break;}
         }
-    }
-    while(esAdyacenteEstacion2(aux3,aux4)){
-        switch (this->tipo_estacion2) {
-        case 1:
-        case 2:{ aux3 = rand() % 5;
-                 aux4 = rand() % 5;
-                 break;}
-        case 3:{ aux3 = 1+rand() % 3;
-                 aux4 = rand() % 5;
-                 break;}
-        case 4:{ aux3 = rand() % 5;
-                 aux4 = 1+rand() % 3;
-                 break;}
-        }
+
     }
     switch (this->tipo_estacion2) {
     case 1:{
@@ -953,7 +976,7 @@ void MainWindow::on_start_clicked()
     }
         botones[aux1][aux2]->setText("estacion1-"+QString::number(this->tipo_estacion));
         caminos[aux1][aux2]=true;
-        ocupado[aux1][aux2]=true;
+        //ocupado[aux1][aux2]=true;
         botones[aux1][aux2]->setEnabled(false);
         //ultimox=aux1;
         //ultimoy=aux2;
@@ -992,6 +1015,8 @@ void MainWindow::on_pushButton_clicked()
                 segy=-1;
                 ultimo=false;
                 ganar=false;
+                clikval=false;
+                gameon=false;
             }
         }
         ui->start->setEnabled(true);

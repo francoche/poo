@@ -15,6 +15,7 @@
 #include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLCDNumber>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -59,6 +60,7 @@ public:
     QPushButton *start;
     QPushButton *pushButton;
     QLCDNumber *lcdNumber;
+    QLabel *error;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -66,7 +68,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 600);
+        MainWindow->resize(800, 630);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
@@ -254,6 +256,17 @@ public:
 
         gridLayout_2->addWidget(frame, 1, 0, 1, 1);
 
+        error = new QLabel(centralwidget);
+        error->setObjectName(QString::fromUtf8("error"));
+        error->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);\n"
+"font: 26pt \"Titillium Web\";\n"
+"font: 24pt \"Segoe UI\";\n"
+"\n"
+""));
+        error->setAlignment(Qt::AlignCenter);
+
+        gridLayout_2->addWidget(error, 2, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -298,6 +311,7 @@ public:
         estacion25->setText(QApplication::translate("MainWindow", "camino", nullptr));
         start->setText(QApplication::translate("MainWindow", "start", nullptr));
         pushButton->setText(QApplication::translate("MainWindow", "reset", nullptr));
+        error->setText(QString());
     } // retranslateUi
 
 };

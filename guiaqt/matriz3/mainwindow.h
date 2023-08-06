@@ -4,10 +4,13 @@
 #include <QMainWindow>
 #include<QPushButton>
 #include<QTimer>
+#include<QObject>
+#include<QLabel>
 #include <QMessageBox>
 #include <cstdlib>
 #include <ctime>
 #include "estaciones.h"
+#include <iostream>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -32,8 +35,9 @@ public:
     bool camino_horizontal(int row,int col);
     bool camino_vertical(int row,int col);
     bool camino_1_2(int row,int col);
-
     void bloquear(int row,int col);
+    void mensaje();
+
     QPushButton* botones[5][5];
 
 private slots:
@@ -41,6 +45,7 @@ private slots:
  void contar();
  void on_start_clicked();
  void on_pushButton_clicked();
+ void rest();
 
 private:
     Ui::MainWindow *ui;
@@ -66,6 +71,10 @@ private:
     int segx=-1;
     int segy=-1;
     bool ganar=false;
+    bool clikval=false;
+    bool gameon=false;
+    QTimer err;
+
 
 
 
