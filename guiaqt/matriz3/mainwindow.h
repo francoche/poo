@@ -37,7 +37,6 @@ public:
     bool camino_1_2(int row,int col);
     void bloquear(int row,int col);
     void mensaje();
-
     QPushButton* botones[5][5];
 
 private slots:

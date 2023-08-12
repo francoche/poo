@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
            QString butname="estacion"+QString::number(this->pos);
            boton[j][i]=MainWindow::findChild<QPushButton*>(butname);
            botones[j][i]=boton[j][i];
+           botones[j][i]->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0); }");
            connect(boton[j][i], SIGNAL(clicked()), this, SLOT(ejemplo()));
        }
 
@@ -302,22 +303,22 @@ void MainWindow::bloquear(int row,int col)
 {
     if(esAdyacenteEstacion5(row,col)){
         switch (this->tipo_estacion3) {
-        case 1:{caminos[row2][col2]=false;
-            //testaciones[row2][col2].setdatos(0,row2,col2);
-            //estaciones[row2][col2]==false;
+        case 1:{
+            caminos[row2][col2]=false;
+
             break;}
         case 2:{
             caminos[row2][col2]=false;
-            //testaciones[row2][col2].setdatos(0,row2,col2);
+
 
             break;}
-        case 3:{caminos[row2][col2]=false;
-            //estaciones[row2][col2]==false;
-            //testaciones[row2][col2].setdatos(0,row2,col2);
+        case 3:{
+            caminos[row2][col2]=false;
+
             break;}
-        case 4:{caminos[row2][col2]=false;
-            //estaciones[row2][col2]==false;
-            //testaciones[row2][col2].setdatos(0,row2,col2);
+        case 4:{
+            caminos[row2][col2]=false;
+
             break;}
 
         }
@@ -339,19 +340,6 @@ void MainWindow::mensaje()
 
 void MainWindow::generar_estacion()
 {
-    /*int aux1 = rand() % 5;
-    int aux2 = rand() % 5;
-
-    while (ocupado[aux1][aux2]==true || esAdyacenteEstacion2(aux1,aux2)) {
-        aux1 = rand() % 5;
-        aux2 = rand() % 5;
-    }
-    this->cont_estaciones++;
-    botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones));;
-    estaciones[aux1][aux2]=true;
-    ocupado[aux1][aux2]=true;
-    this->row=aux1;
-    this->col=aux2;*/
     if(this->ganaste==25){
         timer.stop();
         QMessageBox::information(this,"ganaste","ganaste");
@@ -401,18 +389,34 @@ void MainWindow::generar_estacion()
         this->cont_estaciones++;
         testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
         botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones)+'-'+QString::number(this->tipo_estacion));
+        switch (this->tipo_estacion) {
+        case 1:{
+
+            botones[aux1][aux2]->setStyleSheet("QPushButton {color: rgb(0, 0, 255); }");
+            break;
+        }
+        case 2:{
+
+            botones[aux1][aux2]->setStyleSheet("QPushButton {color: rgb(170, 0, 255); }");
+            break;
+        }
+        case 3:{
+
+            botones[aux1][aux2]->setStyleSheet("QPushButton {color: rgb(0, 170, 127); }");
+            break;
+        }
+        case 4:{
+
+            botones[aux1][aux2]->setStyleSheet("QPushButton {color: rgb(170, 55, 51); }");
+            break;
+        }
+        }
         estaciones[aux1][aux2]=true;
         ocupado[aux1][aux2]=true;
         this->row=aux1;
         this->col=aux2;
     }
-    /*this->cont_estaciones++;
-    testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
-    botones[aux1][aux2]->setText("estacion"+QString::number(this->cont_estaciones)+'-'+QString::number(this->tipo_estacion));
-    estaciones[aux1][aux2]=true;
-    ocupado[aux1][aux2]=true;
-    this->row=aux1;
-    this->col=aux2;*/
+
 
 }
 
@@ -459,15 +463,14 @@ void MainWindow::ejemplo()
                 ganar=true;
 
             }
-            //Aux->setText("estacion"+QString::number(this->cont_estaciones));
-            //estaciones[rowClicked][colClicked]=true;
+
             for(int i=0;i<5;i++){
                 for(int j=0;j<5;j++){
                     caminos[j][i]=false;
 
                 }
              }
-            //[rowClicked][colClicked]=true;
+
             estaciones[rowClicked][colClicked]=true;
             ocupado[rowClicked][colClicked]=true;
             for(int i=0;i<5;i++){
@@ -476,7 +479,7 @@ void MainWindow::ejemplo()
                         if(this->testaciones[j][i].geta()==2){
                             caminos[j][i]=true;
                         }
-                        //caminos[j][i]=true;
+
                     }
                 }
              }
@@ -498,6 +501,7 @@ void MainWindow::ejemplo()
 
             }
             Aux->setText("/");
+            botones[rowClicked][colClicked]->setStyleSheet("QPushButton {color: rgb(85, 41, 21); }");
             caminos[rowClicked][colClicked]=true;
             ocupado[rowClicked][colClicked]=true;
             bloquear(rowClicked,colClicked);
@@ -525,15 +529,14 @@ void MainWindow::ejemplo()
                     ganar=true;
                 }
 
-                //Aux->setText("estacion"+QString::number(this->cont_estaciones));
-                //estaciones[rowClicked][colClicked]=true;
+
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
                         caminos[j][i]=false;
 
                     }
                  }
-                //[rowClicked][colClicked]=true;
+
                 estaciones[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -542,7 +545,7 @@ void MainWindow::ejemplo()
                             if(this->testaciones[j][i].geta()==2){
                                 caminos[j][i]=true;
                             }
-                            //caminos[j][i]=true;
+
                         }
                     }
                  }
@@ -565,6 +568,7 @@ void MainWindow::ejemplo()
 
                 }
                 Aux->setText("/");
+                botones[rowClicked][colClicked]->setStyleSheet("QPushButton {color: rgb(85, 41, 21); }");
                 caminos[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 bloquear(rowClicked,colClicked);
@@ -591,15 +595,14 @@ void MainWindow::ejemplo()
                 ganar=true;
             }
 
-            //Aux->setText("estacion"+QString::number(this->cont_estaciones));
-            //estaciones[rowClicked][colClicked]=true;
+
             for(int i=0;i<5;i++){
                 for(int j=0;j<5;j++){
                     caminos[j][i]=false;
 
                 }
              }
-            //[rowClicked][colClicked]=true;
+
             estaciones[rowClicked][colClicked]=true;
             ocupado[rowClicked][colClicked]=true;
             for(int i=0;i<5;i++){
@@ -608,7 +611,7 @@ void MainWindow::ejemplo()
                         if(this->testaciones[j][i].geta()==2){
                             caminos[j][i]=true;
                         }
-                        //caminos[j][i]=true;
+
                     }
                 }
              }
@@ -630,6 +633,7 @@ void MainWindow::ejemplo()
 
             }
             Aux->setText("/");
+            botones[rowClicked][colClicked]->setStyleSheet("QPushButton {color: rgb(85, 41, 21); }");
             caminos[rowClicked][colClicked]=true;
             ocupado[rowClicked][colClicked]=true;
             bloquear(rowClicked,colClicked);
@@ -656,15 +660,14 @@ void MainWindow::ejemplo()
                     ganar=true;
                 }
 
-                //Aux->setText("estacion"+QString::number(this->cont_estaciones));
-                //estaciones[rowClicked][colClicked]=true;
+
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
                         caminos[j][i]=false;
 
                     }
                  }
-                //[rowClicked][colClicked]=true;
+
                 estaciones[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -673,7 +676,7 @@ void MainWindow::ejemplo()
                             if(this->testaciones[j][i].geta()==2){
                                 caminos[j][i]=true;
                             }
-                            //caminos[j][i]=true;
+
                         }
                     }
                  }
@@ -695,6 +698,7 @@ void MainWindow::ejemplo()
 
                 }
                 Aux->setText("/");
+                botones[rowClicked][colClicked]->setStyleSheet("QPushButton {color: rgb(85, 41, 21); }");
                 caminos[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 bloquear(rowClicked,colClicked);
@@ -721,15 +725,14 @@ void MainWindow::ejemplo()
                     on_pushButton_clicked();
                     ganar=true;
                 }
-                //Aux->setText("estacion"+QString::number(this->cont_estaciones));
-                //estaciones[rowClicked][colClicked]=true;
+
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
                         caminos[j][i]=false;
 
                     }
                  }
-                //[rowClicked][colClicked]=true;
+
                 estaciones[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -738,7 +741,7 @@ void MainWindow::ejemplo()
                             if(this->testaciones[j][i].geta()==2){
                                 caminos[j][i]=true;
                             }
-                            //caminos[j][i]=true;
+
                         }
                     }
                  }
@@ -765,15 +768,14 @@ void MainWindow::ejemplo()
                     ganar=true;
                 }
 
-                //Aux->setText("estacion"+QString::number(this->cont_estaciones));
-                //estaciones[rowClicked][colClicked]=true;
+
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
                         caminos[j][i]=false;
 
                     }
                  }
-                //[rowClicked][colClicked]=true;
+
                 estaciones[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -782,7 +784,7 @@ void MainWindow::ejemplo()
                             if(this->testaciones[j][i].geta()==2){
                                 caminos[j][i]=true;
                             }
-                            //caminos[j][i]=true;
+
                         }
                     }
                  }
@@ -808,15 +810,14 @@ void MainWindow::ejemplo()
                     ganar=true;
                 }
 
-                //Aux->setText("estacion"+QString::number(this->cont_estaciones));
-                //estaciones[rowClicked][colClicked]=true;
+
                 for(int i=0;i<5;i++){
                     for(int j=0;j<5;j++){
                         caminos[j][i]=false;
 
                     }
                  }
-                //[rowClicked][colClicked]=true;
+
                 estaciones[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 for(int i=0;i<5;i++){
@@ -825,7 +826,7 @@ void MainWindow::ejemplo()
                             if(this->testaciones[j][i].geta()==2){
                                 caminos[j][i]=true;
                             }
-                            //caminos[j][i]=true;
+
                         }
                     }
                  }
@@ -843,6 +844,7 @@ void MainWindow::ejemplo()
 
             }else if(estaciones[rowClicked][colClicked]==false){
                 Aux->setText("/");
+                botones[rowClicked][colClicked]->setStyleSheet("QPushButton {color: rgb(85, 41, 21); }");
                 caminos[rowClicked][colClicked]=true;
                 ocupado[rowClicked][colClicked]=true;
                 bloquear(rowClicked,colClicked);
@@ -898,36 +900,34 @@ void MainWindow::on_start_clicked()
     case 1:{
         testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
         estaciones[aux1][aux2]=true;
+        botones[aux1][aux2]->setStyleSheet("QPushButton {color: rgb(0, 0, 255); }");
         break;
     }
     case 2:{
         testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
         estaciones[aux1][aux2]=true;
+        botones[aux1][aux2]->setStyleSheet("QPushButton {color: rgb(170, 0, 255); }");
         break;
     }
     case 3:{
         testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
         estaciones[aux1][aux2]=true;
+        botones[aux1][aux2]->setStyleSheet("QPushButton {color: rgb(0, 170, 127); }");
         break;
     }
     case 4:{
         testaciones[aux1][aux2].setdatos(this->tipo_estacion,aux1,aux2);
         estaciones[aux1][aux2]=true;
+        botones[aux1][aux2]->setStyleSheet("QPushButton {color: rgb(170, 55, 51); }");
         break;
     }
     }
     ocupado[aux1][aux2]=true;
 
-    //estaciones[aux1][aux2]=true;
+
+
     this->tipo_estacion2=1+rand() % 4;
-    /*int aux1 = rand() % 5;
-    //int aux2 = rand() % 5;
-    int aux3 = rand() % 5;
-    int aux4 = rand() % 5;
-    while(aux1==aux3 && aux2==aux4){
-         aux3 = rand() % 5;
-         aux4 = rand() % 5;
-    }*/
+
     switch (this->tipo_estacion2) {
     case 1:
     case 2:{ aux3 = rand() % 5;
@@ -958,31 +958,34 @@ void MainWindow::on_start_clicked()
     switch (this->tipo_estacion2) {
     case 1:{
         testaciones[aux3][aux4].setdatos(this->tipo_estacion2,aux3,aux4);
-        //estaciones[aux3][aux4]=true;
+        botones[aux3][aux4]->setStyleSheet("QPushButton {color: rgb(0, 0, 255); }");
+
         break;
     }
     case 2:{
         testaciones[aux3][aux4].setdatos(this->tipo_estacion2,aux3,aux4);
-        //estaciones[aux3][aux4]=true;
+        botones[aux3][aux4]->setStyleSheet("QPushButton {color: rgb(170, 0, 255); }");
+
         break;}
     case 3:{
         testaciones[aux3][aux4].setdatos(this->tipo_estacion2,aux3,aux4);
-        //estaciones[aux3][aux4]=true;
+        botones[aux3][aux4]->setStyleSheet("QPushButton {color: rgb(0, 170, 127); }");
+
         break;}
     case 4:{
         testaciones[aux3][aux4].setdatos(this->tipo_estacion2,aux3,aux4);
-        //estaciones[aux3][aux4]=true;
+        botones[aux3][aux4]->setStyleSheet("QPushButton {color: rgb(170, 55, 51); }");
+
         break;}
     }
         botones[aux1][aux2]->setText("estacion1-"+QString::number(this->tipo_estacion));
         caminos[aux1][aux2]=true;
-        //ocupado[aux1][aux2]=true;
+
         botones[aux1][aux2]->setEnabled(false);
-        //ultimox=aux1;
-        //ultimoy=aux2;
+
         this->ganaste++;
         botones[aux3][aux4]->setText("estacion2-"+QString::number(this->tipo_estacion2));
-        //estaciones[aux3][aux4]=true;
+
         ocupado[aux3][aux4]=true;
         this->row=aux3;
         this->col=aux4;
@@ -1017,6 +1020,8 @@ void MainWindow::on_pushButton_clicked()
                 ganar=false;
                 clikval=false;
                 gameon=false;
+                botones[col][row]->setStyleSheet("QPushButton {color:rgb(0, 0, 0); }");
+                botones[col][row]->setStyleSheet("QPushButton {background-color: rgb(0, 0, 0); }");
             }
         }
         ui->start->setEnabled(true);

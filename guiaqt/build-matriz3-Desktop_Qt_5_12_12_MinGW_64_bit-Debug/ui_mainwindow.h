@@ -29,6 +29,11 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QGridLayout *gridLayout_2;
+    QFrame *frame;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *start;
+    QPushButton *pushButton;
+    QLCDNumber *lcdNumber;
     QGridLayout *gridLayout;
     QPushButton *estacion1;
     QPushButton *estacion2;
@@ -55,12 +60,13 @@ public:
     QPushButton *estacion23;
     QPushButton *estacion24;
     QPushButton *estacion25;
-    QFrame *frame;
-    QHBoxLayout *horizontalLayout;
-    QPushButton *start;
-    QPushButton *pushButton;
-    QLCDNumber *lcdNumber;
     QLabel *error;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_2;
+    QLabel *label;
+    QLabel *label_2;
+    QLabel *label_3;
+    QLabel *label_4;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -68,11 +74,40 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(800, 630);
+        MainWindow->resize(816, 708);
+        MainWindow->setStyleSheet(QString::fromUtf8(""));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         gridLayout_2 = new QGridLayout(centralwidget);
         gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        frame = new QFrame(centralwidget);
+        frame->setObjectName(QString::fromUtf8("frame"));
+        frame->setFrameShape(QFrame::StyledPanel);
+        frame->setFrameShadow(QFrame::Raised);
+        horizontalLayout = new QHBoxLayout(frame);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        start = new QPushButton(frame);
+        start->setObjectName(QString::fromUtf8("start"));
+        start->setMinimumSize(QSize(20, 20));
+        start->setCheckable(false);
+        start->setChecked(false);
+
+        horizontalLayout->addWidget(start);
+
+        pushButton = new QPushButton(frame);
+        pushButton->setObjectName(QString::fromUtf8("pushButton"));
+        pushButton->setMinimumSize(QSize(20, 20));
+
+        horizontalLayout->addWidget(pushButton);
+
+        lcdNumber = new QLCDNumber(frame);
+        lcdNumber->setObjectName(QString::fromUtf8("lcdNumber"));
+
+        horizontalLayout->addWidget(lcdNumber);
+
+
+        gridLayout_2->addWidget(frame, 1, 0, 1, 1);
+
         gridLayout = new QGridLayout();
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         estacion1 = new QPushButton(centralwidget);
@@ -228,34 +263,6 @@ public:
 
         gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
 
-        frame = new QFrame(centralwidget);
-        frame->setObjectName(QString::fromUtf8("frame"));
-        frame->setFrameShape(QFrame::StyledPanel);
-        frame->setFrameShadow(QFrame::Raised);
-        horizontalLayout = new QHBoxLayout(frame);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        start = new QPushButton(frame);
-        start->setObjectName(QString::fromUtf8("start"));
-        start->setMinimumSize(QSize(20, 20));
-        start->setCheckable(false);
-        start->setChecked(false);
-
-        horizontalLayout->addWidget(start);
-
-        pushButton = new QPushButton(frame);
-        pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setMinimumSize(QSize(20, 20));
-
-        horizontalLayout->addWidget(pushButton);
-
-        lcdNumber = new QLCDNumber(frame);
-        lcdNumber->setObjectName(QString::fromUtf8("lcdNumber"));
-
-        horizontalLayout->addWidget(lcdNumber);
-
-
-        gridLayout_2->addWidget(frame, 1, 0, 1, 1);
-
         error = new QLabel(centralwidget);
         error->setObjectName(QString::fromUtf8("error"));
         error->setStyleSheet(QString::fromUtf8("color: rgb(255, 0, 0);\n"
@@ -267,10 +274,50 @@ public:
 
         gridLayout_2->addWidget(error, 2, 0, 1, 1);
 
+        widget = new QWidget(centralwidget);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        horizontalLayout_2 = new QHBoxLayout(widget);
+        horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        label = new QLabel(widget);
+        label->setObjectName(QString::fromUtf8("label"));
+        label->setStyleSheet(QString::fromUtf8("color: rgb(0, 0, 255);\n"
+"font: 12pt \"MS Shell Dlg 2\";"));
+        label->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label);
+
+        label_2 = new QLabel(widget);
+        label_2->setObjectName(QString::fromUtf8("label_2"));
+        label_2->setStyleSheet(QString::fromUtf8("color: rgb(170, 0, 255);\n"
+"font: 12pt \"MS Shell Dlg 2\";\n"
+""));
+        label_2->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label_2);
+
+        label_3 = new QLabel(widget);
+        label_3->setObjectName(QString::fromUtf8("label_3"));
+        label_3->setStyleSheet(QString::fromUtf8("color: rgb(0, 170, 127);\n"
+"font: 12pt \"MS Shell Dlg 2\";"));
+        label_3->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label_3);
+
+        label_4 = new QLabel(widget);
+        label_4->setObjectName(QString::fromUtf8("label_4"));
+        label_4->setStyleSheet(QString::fromUtf8("color: rgb(170, 55, 51);\n"
+"font: 12pt \"MS Shell Dlg 2\";"));
+        label_4->setAlignment(Qt::AlignCenter);
+
+        horizontalLayout_2->addWidget(label_4);
+
+
+        gridLayout_2->addWidget(widget, 3, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName(QString::fromUtf8("menubar"));
-        menubar->setGeometry(QRect(0, 0, 800, 21));
+        menubar->setGeometry(QRect(0, 0, 816, 21));
         MainWindow->setMenuBar(menubar);
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
@@ -284,6 +331,8 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", nullptr));
+        start->setText(QApplication::translate("MainWindow", "start", nullptr));
+        pushButton->setText(QApplication::translate("MainWindow", "reset", nullptr));
         estacion1->setText(QApplication::translate("MainWindow", "camino", nullptr));
         estacion2->setText(QApplication::translate("MainWindow", "camino", nullptr));
         estacion3->setText(QApplication::translate("MainWindow", "camino", nullptr));
@@ -309,9 +358,11 @@ public:
         estacion23->setText(QApplication::translate("MainWindow", "camino", nullptr));
         estacion24->setText(QApplication::translate("MainWindow", "camino", nullptr));
         estacion25->setText(QApplication::translate("MainWindow", "camino", nullptr));
-        start->setText(QApplication::translate("MainWindow", "start", nullptr));
-        pushButton->setText(QApplication::translate("MainWindow", "reset", nullptr));
         error->setText(QString());
+        label->setText(QApplication::translate("MainWindow", "Estacion normal tipo 1", nullptr));
+        label_2->setText(QApplication::translate("MainWindow", "Estacion multiple tipo 2", nullptr));
+        label_3->setText(QApplication::translate("MainWindow", "Estacion horizontal tipo 3", nullptr));
+        label_4->setText(QApplication::translate("MainWindow", "Estacion vertical tipo 4", nullptr));
     } // retranslateUi
 
 };
