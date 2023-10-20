@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../../probando_git/TP2_poo/mainwindow.h"
+#include "../../../../TP2_Franco_Humpola-Ignacio_Luccic-Ezequiel_Godoy_Villarraza/mainwindow.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)

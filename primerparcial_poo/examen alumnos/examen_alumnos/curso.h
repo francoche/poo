@@ -12,6 +12,7 @@ public:
     Curso();
     void setalumno(Alumno a);
     void mosrtrarcursocondiciones();
+    void operator+(Alumno a);
 };
 
 #endif // CURSO_H

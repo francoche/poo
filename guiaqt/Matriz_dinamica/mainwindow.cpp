@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    int cant = 15;
+    int cant = 10;
     this->botones = new QPushButton**[cant];
     for (int i = 0; i< cant; i++) {
         this->botones[i] = new QPushButton*[cant];

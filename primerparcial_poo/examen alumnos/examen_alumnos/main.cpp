@@ -40,9 +40,9 @@ int main()
     cout<<e;
     cout<<endl;
     Curso c;
-    c.setalumno(a);
-    c.setalumno(b);
-    c.setalumno(e);
+    c+a;
+    c+b;
+    c+e;
     c.mosrtrarcursocondiciones();
 
 }

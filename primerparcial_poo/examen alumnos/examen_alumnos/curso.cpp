@@ -22,3 +22,8 @@ void Curso::mosrtrarcursocondiciones()
        std::cout<<"Alumno"<<i<<": "<<this->vec[i]->getnombre()<<this->vec[i]->getcondicion()<<std::endl;
     }
 }
+
+void Curso::operator+(Alumno a)
+{
+    setalumno(a);
+}
